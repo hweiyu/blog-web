@@ -1,21 +1,16 @@
 <template lang="html">
   <div class="foot">
     <div class="container">
-      <run-time></run-time>
       <p>Made
         <i class="fa fa-heart"></i>
-        By JhonXY.
+        By Liuzw.
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import runTime from '@/components/runTime.vue'
 export default {
-  components: {
-    runTime
-  }
 }
 </script>
 

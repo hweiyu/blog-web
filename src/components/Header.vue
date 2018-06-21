@@ -4,12 +4,12 @@
     <nav id="primary-navigation" class="site-navigation primary-navigation">
       <div class="menum">
         <ul class="nav-menu">
-          <li class="menu-item"><router-link href="#" to="/blog"><i class="fa fa-home"></i>首页</router-link></li>
+          <li class="menu-item"><router-link href="#" to="/"><i class="fa fa-home"></i>首页</router-link></li>
           <li id="collapse" class="menu-item">
             <a target="_blank"><i class="fa fa-cog"></i>分类</a>
             <ul class="collapse-menum">
-              <li class="menu-item" v-for="item in tags">
-                <a href="javascript:;" @click="getOne(item.tag)">{{item.tag}}</a>
+              <li class="menu-item" v-for="item in tagList">
+                <a href="javascript:" @click="getTagId(item.id)">{{item.tagName}}</a>
               </li>
             </ul>
           </li>
@@ -25,36 +25,32 @@
 <script>
 // 实现导航条的自动显示
 import Headroom from 'headroom.js'
-import { unique } from '@/assets/js/unique';
-import axios from 'axios'
+import {getTagList} from '../api/api';
 export default {
   data () {
     return {
-      tags: []
+      tagList: []
     }
   },
   methods: {
-    getTags () {
-      axios.get("/api/articleTags").then((result)=>{
-        let res = result.data
-        if (res.status == '0') {
-          this.tags = res.result
-          this.tags = unique(this.tags)
-          this.$emit('shareTags', this.tags)
-        } else {
-          this.tags = ["未获取到数据"]
+    getTagList() {
+      getTagList({}).then((res) => {
+        if (res.code === 1) {
+          this.tagList = res.data;
+          this.$emit('getTagList', this.tagList)
         }
-      })
+      }, () => {}).catch(() => {});
     },
-    getOne (tag) {
-      this.$emit('shareOne', tag)
-      this.$router.push({path:'/blog'})
+
+    getTagId (tagId) {
+      this.$emit('getTagId', tagId);
+      this.$router.push({path:'/'})
     }
   },
   mounted () {
-    var myElement = document.querySelector(".header");
+    let myElement = document.querySelector(".header");
     // construct an instance of Headroom, passing the element
-    var headroom  = new Headroom(myElement, {
+    let headroom  = new Headroom(myElement, {
       "tolerance": 1,
       "offset": 10,
       "classes": {
@@ -64,7 +60,7 @@ export default {
       }
     });
     headroom.init();
-    this.getTags()
+    this.getTagList();
   }
 }
 </script>

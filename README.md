@@ -1,6 +1,5 @@
-# blog
-
-> 个人博客，前端项目
+# blog-web
+个人博客（前端）
 
 ## Build Setup
 
@@ -16,4 +15,3 @@ npm run build
 
 # build for production and view the bundle analyzer report
 npm run build --report
-```

@@ -4,7 +4,7 @@
     <div class="headpic">
       <div class="container headtitle full">
         <div class="title">
-          <h1 href="/blog">Chunibyo</h1>
+          <h1 href="/">liuzw</h1>
         </div>
       </div>
     </div>
@@ -18,10 +18,10 @@
                 <strong>心血来潮做的一个个人博客</strong>
                 <br>
                 <p style="margin-bottom: 20px;padding-top: 20px;">
-                  github地址 : <a href="https://github.com/JhonXY/vue-blog">https://github.com/JhonXY/vue-blog</a>
+                  github地址(前端) : <a href="https://github.com/liu1235/blog-web">https://github.com/liu1235/blog-web</a>
                 </p>
-                <p style="margin-bottom: 20px;">
-                  server部分地址: <a href="https://github.com/JhonXY/vue-blog-server">https://github.com/JhonXY/vue-blog-server</a>
+                <p style="margin-bottom: 20px;padding-top: 20px;">
+                  github地址(后端) : <a href="https://github.com/liu1235/blog-scm">https://github.com/liu1235/blog-scm</a>
                 </p>
                 <img src="/static/bingguo.jpg" alt="我很好奇">
               </div>
@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import NavHeader from '@/components/Header.vue'
-import NavFooter from '@/components/Footer.vue'
+import NavHeader from '../../components/Header.vue'
+import NavFooter from '../../components/Footer.vue'
 export default {
   components: {
     NavHeader,

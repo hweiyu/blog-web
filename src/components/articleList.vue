@@ -1,96 +1,99 @@
 <template lang="html">
 <div class="article-list">
-  <article class="block post" v-for="item in list">
+  <article class="block post wysiwyg" v-for="item in articleList">
     <h2>{{item.title}}</h2>
-    <p class="article-meta">发布于 {{item.createDate}}</p>
+    <p class="article-meta">发布于 {{formatTime(item.createDate)}}</p>
     <div class="ui ribbon label red">
-      <a href="">{{item.tag}}</a>
+      <a href="">{{item.tagName}}</a>
     </div>
-    <div class="abstract" v-html="item.content.html">
+    <div class="abstract" v-html="item.content">
     </div>
-    <p class="more"><router-link :to="{ path:'/article', query:{articleId:item.articleId}}">阅读全文</router-link></p>
+    <p class="more"><router-link :to="{ path:'/article', query:{id: item.id}}">阅读全文</router-link></p>
   </article>
   <div class="pages">
-    <a href="javascript:;" @click="go(page-=1)" style="float: left;">上一页</a>
-    <a href="javascript:;" @click="go(page+=1)" style="float: right;">下一页</a>
+    <!--工具条-->
+    <el-col :span="24" style="margin-top: 10px">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="pageNum"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total" style="float: right">
+      </el-pagination>
+    </el-col>
   </div>
 </div>
 </template>
 
 <script>
-import axios from 'axios'
+
+import {getBlogList} from '../api/api';
+import util from '../assets/js/util';
 export default {
-  props:[
-    'tagSelect'
-  ],
+  props:['tagId'],
   data () {
     return {
-      list: [],
-      page: 1,
+      articleList: [],
+      pageNum: 1,
       pageSize: 10,
-      count: 0
+      total: 0
     }
   },
   watch: {
-    tagSelect () {
+    tagId () {
       this.getTagList()
     }
   },
   mounted () {
-    this.getlist()
+    this.getBlogList()
   },
   methods: {
-    getlist () {
-      var param = {
-        page: this.page,
+    formatTime(date) {
+      return util.dateFormat('yyyy-MM-dd hh:mm:ss', new Date(date));
+    },
+    //切换页数
+    handleCurrentChange(val) {
+      this.pageNum = val;
+      this.getBlogList();
+    },
+    //处理分页条数
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.getBlogList();
+    },
+
+    getBlogList () {
+      let param = {
+        pageNum: this.pageNum,
         pageSize: this.pageSize
-      }
-      axios.get("/api/articleList", {
-        params: param
-      }).then((result)=>{
-        let res = result.data
-        if (res.status == "0") {
-          if (res.result.count == 0) {
-            this.page -= 1
-            return
-          } else {
-            this.list = res.result.list
-          }
-        } else {
-          this.list = []
+      };
+      getBlogList(param).then((res) => {
+        if (res.code === 1) {
+          this.total = res.data.pageInfo.total;
+          this.articleList = res.data.data;
         }
-      })
+      }, () => {}).catch(() => {});
     },
     getTagList () {
-      var param = {
-        page: this.page,
+      this.pageNum = 0;
+      this.pageSize = 10;
+      let param = {
+        pageNum: this.pageNum,
         pageSize: this.pageSize,
-        tag: this.tagSelect
-      }
-      axios.get("/api/tagsDetial", {
-        params: param
-      }).then((result)=>{
-        let res = result.data
-        if (res.status == "0") {
-          if (res.result.count == 0) {
-            this.page -= 1
-            return
-          } else {
-            this.list = res.result.list
-          }
-        } else {
-          this.list = []
+        tagId: this.tagId
+      };
+      getBlogList(param).then((res) => {
+        if (res.code === 1) {
+          this.total = res.data.pageInfo.total;
+          this.articleList = res.data.data;
         }
-      })
+      }, () => {}).catch(() => {});
+
     },
-    go () {
-      if (this.page<1) {
-        this.page = 1
-        return
-      } else {
-        this.getlist()
-      }
-    }
+
   }
 }
 </script>
