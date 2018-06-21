@@ -4,7 +4,7 @@
     <div class="headpic">
       <div class="container headtitle full">
         <div class="title">
-          <h1 href="/">liuzw</h1>
+          <h1 href="/">hweiyu</h1>
         </div>
       </div>
     </div>
@@ -14,7 +14,7 @@
           <div class="full-content">
             <header>
               <h2>{{article.title}}</h2>
-              <p class="byline">by liuzw
+              <p class="byline">by hweiyu
                 <span class="sep">|</span>
                 <span class="date">{{formatTime(article.createDate)}}</span>
               </p>

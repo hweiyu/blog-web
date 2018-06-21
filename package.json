@@ -1,8 +1,8 @@
 {
-  "name": "liuzw-blog-web",
+  "name": "hweiyu-blog-web",
   "version": "1.0.0",
-  "description": "liuzw-blog-web",
-  "author": "liuzw <670115782@qq.com>",
+  "description": "hweiyu-blog-web",
+  "author": "hweiyu <670115782@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

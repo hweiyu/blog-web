@@ -4,7 +4,7 @@
     <div class="headpic">
       <div class="container headtitle">
         <div class="title">
-          <h1 href="/">liuzw</h1>
+          <h1 href="/">hweiyu</h1>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
           <side-section>
             <div slot="sidecontent">
               <h3>
-                <a href="">liuzw</a>
+                <a href="">hweiyu</a>
                 <span class="cat-desc">Just A Coding Peasant</span>
               </h3>
               <div class="pres">
@@ -26,7 +26,7 @@
                 </a>
                 <a href="" class="detail">
                 <span class="item-info">
-                  <span class="item-title">liuzw</span>
+                  <span class="item-title">hweiyu</span>
                   <span class="item-desc">2018</span>
                 </span>
                 </a>
